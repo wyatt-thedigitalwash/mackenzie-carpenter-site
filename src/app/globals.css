@@ -1,28 +1,58 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Switzer";
+  src: url("/fonts/Switzer-Regular.woff2") format("woff2"),
+       url("/fonts/Switzer-Regular.woff") format("woff"),
+       url("/fonts/Switzer-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Switzer-BoldItalic";
+  src: url("/fonts/Switzer-BoldItalic.woff") format("woff");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-black: #000000;
+  --color-ivory: #F5ECE1;
+  --color-blush: #F8DDCE;
+  --color-red: #CF0001;
+  --color-suede: #462416;
+  --color-gold: #BB6E20;
+  --font-heading: "big-caslon-fb", serif;
+  --font-body: "Switzer", "Albert Sans", sans-serif;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-black: #000000;
+  --color-ivory: #F5ECE1;
+  --color-blush: #F8DDCE;
+  --color-red: #CF0001;
+  --color-suede: #462416;
+  --color-gold: #BB6E20;
+  --font-heading: "big-caslon-fb", serif;
+  --font-sans: "Switzer", "Albert Sans", sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+body, p, li, td, th, label, input, select, textarea, button {
+  font-family: var(--font-body);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-black);
+  color: var(--color-ivory);
+}
+
+h1, h2, h3 {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  text-transform: none;
 }
 
 /* Section Spacing Rule
@@ -34,4 +64,382 @@ section[data-bg="light"] + section[data-bg="light"] {
 
 section[data-bg="dark"] + section[data-bg="dark"] {
   padding-top: 0;
+}
+
+/* Tour section background: vertical on mobile, horizontal on desktop */
+.tour-bg {
+  background-image: url('/backgrounds/MackenzieCarpenter_VerticalPoolPlate2.JPG');
+  background-position: center bottom;
+}
+@media (min-width: 769px) {
+  .tour-bg {
+    background-image: url('/backgrounds/MackenzieCarpenter_PoolPlate.JPG');
+    background-position: center center;
+  }
+}
+
+/* Bandsintown widget - hide default track button and play-my-city (replaced with custom branded buttons) */
+.bit-top-track-button,
+[class*="bit"] [class*="top-track"],
+[class*="bit"] [class*="topTrack"],
+.bit-play-my-city,
+[class*="bit"] [class*="play-my-city"],
+[class*="bit"] [class*="playMyCity"] {
+  display: none !important;
+}
+
+/* Hide widget's grey separator line and last-row border */
+.bit-widget hr,
+.bit-widget [class*="separator"],
+.bit-widget [class*="divider"],
+.bit-widget [class*="Separator"],
+.bit-widget [class*="Divider"] {
+  display: none !important;
+  border: none !important;
+  height: 0 !important;
+}
+
+/* Remove border from last event row */
+.bit-event:last-child,
+.bit-event:last-of-type,
+.bit-widget .bit-events > :last-child,
+.bit-widget .bit-events-list > :last-child {
+  border-bottom: none !important;
+}
+
+/* Remove any border on the events container itself */
+.bit-widget .bit-events,
+.bit-widget .bit-events-list,
+.bit-widget [class*="events"] {
+  border: none !important;
+}
+
+/* Bandsintown widget - global text and background */
+.bit-widget {
+  background: transparent !important;
+}
+
+.bit-event,
+.bit-event * {
+  font-family: var(--font-body) !important;
+}
+
+/* Bandsintown widget - desktop layout */
+@media (min-width: 769px) {
+
+  /* Row: horizontal flex, no wrap */
+  .bit-event {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    padding: 30px 0 !important;
+    border-bottom: 1px dotted rgba(0, 0, 0, 0.3) !important;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    background: transparent !important;
+  }
+
+  /* Info anchor (.bit-details, not .bit-event-buttons): flex row, takes available space */
+  .bit-event > .bit-details:not(.bit-event-buttons) {
+    flex: 1 1 0% !important;
+    width: 0 !important;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    gap: 40px !important;
+    min-width: 0 !important;
+    text-decoration: none !important;
+  }
+
+  /* Column order, fixed widths, left-aligned */
+  .bit-event .bit-details > div:not(.bit-titleWrapper):not(.bit-location) {
+    order: 1 !important;
+    flex: 1 1 0% !important;
+    min-width: 0 !important;
+    text-align: left !important;
+  }
+  .bit-event .bit-details > .bit-location {
+    order: 2 !important;
+    flex: 1 1 0% !important;
+    min-width: 0 !important;
+    text-align: left !important;
+  }
+  .bit-event .bit-details > .bit-titleWrapper {
+    order: 3 !important;
+    flex: 1 1 0% !important;
+    min-width: 0 !important;
+    text-align: left !important;
+  }
+
+  /* Date text */
+  .bit-event .bit-date {
+    color: #F5ECE1 !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.04em !important;
+    white-space: nowrap !important;
+  }
+
+  /* Location text */
+  .bit-event .bit-location {
+    color: #F5ECE1 !important;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.04em !important;
+    white-space: nowrap !important;
+  }
+
+  /* Venue / title text */
+  .bit-event .bit-venue {
+    color: #F5ECE1 !important;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.04em !important;
+  }
+
+  /* Button group: flex row, shrink-to-fit, right-aligned */
+  .bit-widget .bit-event .bit-event-buttons {
+    flex: 0 0 auto !important;
+    width: auto !important;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 10px !important;
+    margin: 0 0 0 72px !important;
+  }
+
+  /* Button sub-containers: shrink to content, kill widget's flex-basis: 100% */
+  .bit-widget .bit-event .bit-rsvp-container,
+  .bit-widget .bit-event .bit-offers-container {
+    flex: 0 0 auto !important;
+    flex-basis: auto !important;
+    width: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: inline-flex !important;
+  }
+
+  /* Kill widget's margin-left on .bit-offers */
+  .bit-widget .bit-event .bit-offers {
+    margin: 0 !important;
+    display: inline-flex !important;
+  }
+
+  /* Ensure the dropdown menu and overlay respect the widget's hidden class */
+  .bit-widget .bit-offers-menu.bit-display-none,
+  .bit-widget .bit-overlay.bit-display-none {
+    display: none !important;
+  }
+
+  /* Multi-offer button: relabel "Tickets & More" to "FREE" */
+  .bit-offers-container:not(.bit-single-cta) .bit-offers > .bit-offers-text {
+    font-size: 0 !important;
+    visibility: hidden !important;
+    position: relative !important;
+  }
+  .bit-offers-container:not(.bit-single-cta) .bit-offers > .bit-offers-text::before {
+    content: "FREE" !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.08em !important;
+    visibility: visible !important;
+    color: #000000 !important;
+    font-family: var(--font-body) !important;
+  }
+
+  /* Individual buttons: compact, hug text */
+  .bit-event .bit-rsvp,
+  .bit-event .bit-offers > a,
+  .bit-event .bit-offers > .bit-offers-text,
+  .bit-event .bit-event-buttons > a {
+    display: inline-block !important;
+    width: auto !important;
+    height: auto !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    flex: 0 0 auto !important;
+    background-color: #F5ECE1 !important;
+    color: #000000 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.08em !important;
+    padding: 12px 26px !important;
+    line-height: 1.2 !important;
+    white-space: nowrap !important;
+    text-decoration: none !important;
+    box-sizing: border-box !important;
+    transition: opacity 0.2s !important;
+  }
+
+  .bit-event .bit-rsvp:hover,
+  .bit-event .bit-offers > a:hover,
+  .bit-event .bit-offers > .bit-offers-text:hover,
+  .bit-event .bit-event-buttons > a:hover {
+    opacity: 0.8 !important;
+  }
+}
+
+/* Bandsintown widget - mobile: stacked details, buttons in own row below */
+@media (max-width: 768px) {
+  .bit-event {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    padding: 20px 0 !important;
+    border-bottom: 1px dotted rgba(0, 0, 0, 0.3) !important;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    gap: 4px !important;
+    background: transparent !important;
+  }
+
+  .bit-event .bit-date,
+  .bit-event .bit-eventDate {
+    color: #F5ECE1 !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+  }
+
+  .bit-event .bit-venue,
+  .bit-event .bit-eventVenue,
+  .bit-event .bit-lineup,
+  .bit-event .bit-eventTitle,
+  .bit-event .bit-location,
+  .bit-event .bit-eventLocation {
+    color: #F5ECE1 !important;
+    font-size: 15px !important;
+    text-transform: uppercase !important;
+  }
+
+  .bit-event .bit-location,
+  .bit-event .bit-eventLocation {
+    font-weight: 600 !important;
+  }
+
+  /* Button group: force row layout, kill widget's margin: 0 0 0 15px */
+  .bit-widget .bit-event .bit-event-buttons,
+  .bit-widget.bit-layout-ipad .bit-event .bit-event-buttons {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    gap: 10px !important;
+    margin: 12px 0 0 0 !important;
+    width: 100% !important;
+  }
+
+  /* Sub-containers: equal width, side by side */
+  .bit-widget .bit-event .bit-rsvp-container,
+  .bit-widget .bit-event .bit-offers-container {
+    flex: 1 1 0% !important;
+    flex-basis: 0% !important;
+    width: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Kill widget margin on .bit-offers */
+  .bit-widget .bit-event .bit-offers {
+    margin: 0 !important;
+    width: 100% !important;
+  }
+
+  /* Ensure the dropdown menu and overlay respect the widget's hidden class (mobile) */
+  .bit-widget .bit-offers-menu.bit-display-none,
+  .bit-widget .bit-overlay.bit-display-none {
+    display: none !important;
+  }
+
+  /* Multi-offer button: relabel "Tickets & More" to "FREE" (mobile) */
+  .bit-offers-container:not(.bit-single-cta) .bit-offers > .bit-offers-text {
+    font-size: 0 !important;
+    visibility: hidden !important;
+    position: relative !important;
+  }
+  .bit-offers-container:not(.bit-single-cta) .bit-offers > .bit-offers-text::before {
+    content: "FREE" !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.08em !important;
+    visibility: visible !important;
+    color: #000000 !important;
+    font-family: var(--font-body) !important;
+  }
+
+  /* Buttons fill their container width */
+  .bit-widget .bit-event .bit-event-buttons a,
+  .bit-widget .bit-event .bit-event-buttons .bit-offers-text {
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+}
+
+/* Mobile nav link stagger animation */
+@keyframes navFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Global focus-visible indicator */
+*:focus-visible {
+  outline: 2px solid #BB6E20;
+  outline-offset: 2px;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Skip to content link */
+.skip-to-content {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  z-index: 9999;
+}
+.skip-to-content:focus {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  width: auto;
+  height: auto;
+  padding: 12px 24px;
+  background: #F5ECE1;
+  color: #000000;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  outline: 2px solid #BB6E20;
+  outline-offset: 2px;
 }

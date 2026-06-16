@@ -1,13 +1,25 @@
-import Link from 'next/link';
+import type { Metadata } from "next";
+import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Page Not Found | Mackenzie Carpenter",
+};
 
 export default function NotFound() {
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen px-4 text-center">
-      <h1 className="text-6xl font-bold mb-4">404</h1>
-      <p className="text-xl mb-8">Page not found</p>
+    <main className="flex flex-col items-center justify-center min-h-screen px-4 text-center bg-black">
+      <h1
+        className="text-5xl md:text-6xl text-ivory mb-4"
+        style={{ fontFamily: "var(--font-heading)" }}
+      >
+        404
+      </h1>
+      <p className="text-lg text-ivory/70 mb-8">
+        The page you&apos;re looking for doesn&apos;t exist.
+      </p>
       <Link
         href="/"
-        className="px-6 py-3 bg-black text-white rounded-md hover:opacity-90 transition-opacity"
+        className="bg-ivory text-black uppercase tracking-widest text-sm font-semibold px-8 py-4 transition-opacity hover:opacity-90"
       >
         Go Home
       </Link>
