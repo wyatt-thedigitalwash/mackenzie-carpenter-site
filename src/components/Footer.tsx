@@ -2,7 +2,7 @@ import SocialIcons from "./SocialIcons";
 
 export default function Footer() {
   return (
-    <footer aria-label="Site footer" className="bg-black py-10 px-5">
+    <footer aria-label="Site footer" className="bg-black py-10 pb-20 xl:pb-10 px-5">
       <div className="mx-auto max-w-5xl flex flex-col items-center gap-6">
         <SocialIcons size={27} />
 
