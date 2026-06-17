@@ -276,7 +276,7 @@ export default function FanClubForm() {
   const hasError = status === "error" && !!errorMsg;
 
   const inputClass =
-    "w-full bg-ivory/10 border border-ivory/20 text-ivory placeholder:text-ivory/40 px-4 py-3 text-base focus-visible:outline-none focus-visible:border-ivory/50 focus-visible:ring-2 focus-visible:ring-gold transition-colors";
+    "w-full h-[50px] bg-ivory/10 border border-ivory/20 text-ivory placeholder:text-ivory/40 px-4 py-3 text-base focus-visible:outline-none focus-visible:border-ivory/50 focus-visible:ring-2 focus-visible:ring-gold transition-colors appearance-none";
 
   return (
     <form
