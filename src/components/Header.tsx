@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useEffect, useCallback, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import SocialIcons from "./SocialIcons";
+import { useMenu } from "@/lib/MenuContext";
 
 const NAV_ITEMS = [
   { label: "Tour", href: "/tour" },
@@ -38,7 +39,7 @@ function HamburgerIcon({ open }: { open: boolean }) {
 }
 
 export default function Header() {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const { menuOpen, setMenuOpen } = useMenu();
   const [drawerVisible, setDrawerVisible] = useState(false);
   const drawerRef = useRef<HTMLDivElement>(null);
   const hamburgerRef = useRef<HTMLButtonElement>(null);
@@ -47,7 +48,7 @@ export default function Header() {
   const closeMenu = useCallback(() => {
     setMenuOpen(false);
     hamburgerRef.current?.focus();
-  }, []);
+  }, [setMenuOpen]);
 
   // Close menu when the pathname changes (route navigation completed)
   useEffect(() => {

@@ -10,7 +10,7 @@ export default function Home() {
       <HeroSlider />
 
       {/* SECTION 2 - About */}
-      <section aria-label="About Mackenzie Carpenter" data-bg="light" className="bg-blush py-[72px] md:py-24 px-5 md:px-10">
+      <section aria-label="About Mackenzie Carpenter" data-bg="light" className="bg-blush py-[72px] md:py-24 px-8 md:px-10">
         <div className="flex flex-col md:flex-row items-start gap-8 md:gap-12">
           <div className="w-full md:w-[45%] shrink-0">
             <Image

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import MobileBottomBar from "@/components/MobileBottomBar";
+import { MenuProvider } from "@/lib/MenuContext";
 import "./globals.css";
 
 // TODO: Wire Switzer-Regular via next/font/local once the regular weight
@@ -138,9 +140,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           Skip to main content
         </a>
 
-        <Header />
-        <main id="main-content" className="flex-1">{children}</main>
-        <Footer />
+        <MenuProvider>
+          <Header />
+          <main id="main-content" className="flex-1">{children}</main>
+          <Footer />
+          <MobileBottomBar />
+        </MenuProvider>
       </body>
     </html>
   );
