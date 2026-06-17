@@ -122,10 +122,10 @@ export default function Header() {
   }, [menuOpen]);
 
   return (
-    <header className="absolute top-0 left-0 right-0 z-50">
-      <div className="relative mx-auto flex items-center justify-between px-5 py-3 xl:px-8 z-50">
+    <header className={`${menuOpen ? "fixed" : "absolute"} top-0 left-0 right-0 z-50`}>
+      <div className="relative mx-auto flex items-center justify-between px-5 py-3 xl:px-8 z-[60]">
         {/* Logo — z-50 keeps it above the drawer overlay */}
-        <Link href="/" className="relative z-50 shrink-0" aria-label="Mackenzie Carpenter - Home">
+        <Link href="/" className="relative z-[60] shrink-0" aria-label="Mackenzie Carpenter - Home">
           <Image
             src="/branding/MackenzieCarpenter_PinkLogo.png"
             alt="Mackenzie Carpenter logo"
@@ -174,7 +174,7 @@ export default function Header() {
         {/* Mobile hamburger / X morph */}
         <button
           ref={hamburgerRef}
-          className="xl:hidden relative z-50 p-3 min-w-[44px] min-h-[44px] flex items-center justify-center"
+          className="xl:hidden relative z-[60] p-3 min-w-[44px] min-h-[44px] flex items-center justify-center"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-expanded={menuOpen}
           aria-controls="mobile-menu"
@@ -192,7 +192,7 @@ export default function Header() {
           role="dialog"
           aria-modal="true"
           aria-label="Mobile navigation menu"
-          className={`xl:hidden fixed inset-0 top-0 bg-black z-40 flex flex-col items-center justify-center transition-opacity ${
+          className={`xl:hidden fixed inset-0 top-0 bg-black z-[55] flex flex-col items-center justify-center transition-opacity ${
             menuOpen
               ? "opacity-100 duration-400 ease-[cubic-bezier(0.22,1,0.36,1)]"
               : "opacity-0 duration-200 ease-out pointer-events-none"

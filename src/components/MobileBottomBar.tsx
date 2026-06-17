@@ -56,7 +56,9 @@ const NAV_ITEMS = [
 ];
 
 export default function MobileBottomBar() {
-  const { toggleMenu } = useMenu();
+  const { menuOpen, toggleMenu } = useMenu();
+
+  if (menuOpen) return null;
 
   return (
     <div className="xl:hidden fixed bottom-0 left-0 right-0 z-50 border-t border-suede/10" style={{ backgroundColor: '#F5EDE1' }}>
