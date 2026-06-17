@@ -6,8 +6,13 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const SLIDES = [
   {
+    desktop: "/banners/MackenzieCarpenter_HeartThatDontBreak_DesktopPreSaveNow.jpg",
+    mobile: "/banners/MackenzieCarpenter_HeartThatDontBreak_MobilePreSaveNow.jpg",
+    alt: "Heart That Don't Break - Pre-Save Now",
+  },
+  {
     desktop: "/banners/MackenzieCarpenter_HighPony_DesktopHero.jpg",
-    mobile: "/banners/MackenzieCarpenter_HighPony_MobileHero.jpg",
+    mobile: "/banners/MackenzieCarpenter_HighPony_MobileHero1.jpg",
     href: "https://mackenziecarpenter.ffm.to/highpony",
     alt: "High Pony",
   },
@@ -19,7 +24,7 @@ const SLIDES = [
   },
   {
     desktop: "/banners/MackenzieCarpenter_DrunkCigs_DesktopHero.jpg",
-    mobile: "/banners/MackenzieCarpenter_DrunkCigs_MobileHero.jpg",
+    mobile: "/banners/MackenzieCarpenter_DrunkCigs_MobileHero1.jpg",
     href: "https://mackenziecarpenter.lnk.to/DrunkCigsWE",
     alt: "Drunk Cigs",
   },
@@ -53,38 +58,53 @@ export default function HeroSlider() {
       {/* Desktop: aspect-ratio container to prevent CLS */}
       <div className="hidden min-[900px]:block" style={{ aspectRatio: "16 / 9" }} />
 
-      {SLIDES.map((slide, i) => (
-        <a
-          key={slide.alt}
-          href={slide.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
-            i === current ? "opacity-100 z-10" : "opacity-0 z-0"
-          }`}
-          aria-hidden={i !== current}
-          tabIndex={i === current ? 0 : -1}
-        >
-          {/* Desktop image */}
-          <Image
-            src={slide.desktop}
-            alt={slide.alt}
-            fill
-            className="hidden min-[900px]:block object-contain"
-            priority={i === 0}
-            sizes="100vw"
-          />
-          {/* Mobile image */}
-          <Image
-            src={slide.mobile}
-            alt={slide.alt}
-            fill
-            className="object-cover object-top min-[900px]:hidden"
-            priority={i === 0}
-            sizes="100vw"
-          />
-        </a>
-      ))}
+      {SLIDES.map((slide, i) => {
+        const slideClass = `absolute inset-0 transition-opacity duration-700 ease-in-out ${
+          i === current ? "opacity-100 z-10" : "opacity-0 z-0"
+        }`;
+        const images = (
+          <>
+            <Image
+              src={slide.desktop}
+              alt={slide.alt}
+              fill
+              className="hidden min-[900px]:block object-contain"
+              priority={i === 0}
+              sizes="100vw"
+            />
+            <Image
+              src={slide.mobile}
+              alt={slide.alt}
+              fill
+              className="object-cover object-top min-[900px]:hidden"
+              priority={i === 0}
+              sizes="100vw"
+            />
+          </>
+        );
+
+        return slide.href ? (
+          <a
+            key={slide.alt}
+            href={slide.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={slideClass}
+            aria-hidden={i !== current}
+            tabIndex={i === current ? 0 : -1}
+          >
+            {images}
+          </a>
+        ) : (
+          <div
+            key={slide.alt}
+            className={slideClass}
+            aria-hidden={i !== current}
+          >
+            {images}
+          </div>
+        );
+      })}
 
       {/* Prev arrow */}
       <button
