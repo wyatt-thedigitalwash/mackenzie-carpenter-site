@@ -3,6 +3,7 @@ import Script from "next/script";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileBottomBar from "@/components/MobileBottomBar";
+import MetaPixelPageView from "@/components/MetaPixelPageView";
 import { MenuProvider } from "@/lib/MenuContext";
 import "./globals.css";
 
@@ -98,6 +99,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <Script id="gtag-aud" strategy="afterInteractive">
           {`window.audDataLayer=window.audDataLayer||[];function audGtag(){audDataLayer.push(arguments);}audGtag('js',new Date());audGtag('config','G-FVWZ0RM4DH');`}
         </Script>
+
+        {/* Meta (Facebook) Pixel */}
+        <Script id="meta-pixel" strategy="afterInteractive">
+          {`!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','1858545644702596');
+fbq('init','327646454344180');
+fbq('track','PageView');`}
+        </Script>
       </head>
       <body className="min-h-full flex flex-col">
         {/* Google Tag Manager (noscript) */}
@@ -107,6 +120,26 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             height="0"
             width="0"
             style={{ display: "none", visibility: "hidden" }}
+          />
+        </noscript>
+
+        {/* Meta Pixel (noscript) */}
+        <noscript>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            height="1"
+            width="1"
+            style={{ display: "none" }}
+            src="https://www.facebook.com/tr?id=1858545644702596&ev=PageView&noscript=1"
+            alt=""
+          />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            height="1"
+            width="1"
+            style={{ display: "none" }}
+            src="https://www.facebook.com/tr?id=327646454344180&ev=PageView&noscript=1"
+            alt=""
           />
         </noscript>
 
@@ -139,6 +172,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <a href="#main-content" className="skip-to-content">
           Skip to main content
         </a>
+
+        <MetaPixelPageView />
 
         <MenuProvider>
           <Header />

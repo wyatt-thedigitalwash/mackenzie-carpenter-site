@@ -49,7 +49,7 @@ export default function AboutPage() {
         <div className="absolute inset-0 bg-black/35 md:bg-black/50" />
       </div>
 
-      <div className="pt-8 md:pt-16 pb-20 md:pb-28 px-5 md:px-10">
+      <div className="pt-8 md:pt-16 pb-20 md:pb-28 px-8 md:px-10">
         <div className="flex flex-col md:flex-row items-start gap-8 md:gap-12">
           <div className="w-full md:w-[45%] shrink-0">
             <Image
