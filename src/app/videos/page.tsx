@@ -64,7 +64,7 @@ export default function VideosPage() {
 
   return (
     <div
-      className="min-h-screen bg-cover bg-center bg-fixed max-md:bg-scroll relative"
+      className="min-h-screen bg-cover bg-center bg-fixed max-md:bg-contain max-md:bg-top max-md:bg-repeat-y max-md:bg-scroll relative"
       style={{
         backgroundImage: "url('/backgrounds/MackenzieCarpenter_PoolParallax.jpg')",
       }}
