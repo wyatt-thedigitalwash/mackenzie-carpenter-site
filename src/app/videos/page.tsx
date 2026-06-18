@@ -66,11 +66,11 @@ export default function VideosPage() {
     <div
       className="min-h-screen bg-cover bg-center bg-fixed max-md:bg-scroll relative"
       style={{
-        backgroundImage: "url('/backgrounds/MackenzieCarpenter_PoolPlate.JPG')",
+        backgroundImage: "url('/backgrounds/MackenzieCarpenter_PoolParallax.jpg')",
       }}
     >
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
-      <div className="absolute inset-0 bg-black/50" />
+      <div className="absolute inset-0 bg-black/10" />
 
       <div className="relative z-10 pt-[180px] md:pt-[240px] pb-20 md:pb-28 px-5 md:px-8">
         <h1

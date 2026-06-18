@@ -43,10 +43,10 @@ export default function AboutPage() {
       <div
         className="h-[130px] md:h-[165px] bg-cover bg-center bg-fixed max-md:bg-scroll relative"
         style={{
-          backgroundImage: "url('/backgrounds/MackenzieCarpenter_PoolPlate.JPG')",
+          backgroundImage: "url('/backgrounds/MackenzieCarpenter_PoolParallax.jpg')",
         }}
       >
-        <div className="absolute inset-0 bg-black/35 md:bg-black/50" />
+        <div className="absolute inset-0 bg-black/10" />
       </div>
 
       <div className="pt-8 md:pt-16 pb-20 md:pb-28 px-8 md:px-10">
