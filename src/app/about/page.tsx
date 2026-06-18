@@ -41,7 +41,7 @@ export default function AboutPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       {/* Dark header band matching other pages */}
       <div
-        className="h-[130px] md:h-[165px] bg-cover bg-center bg-fixed max-md:bg-contain max-md:bg-top max-md:bg-repeat-y max-md:bg-scroll relative"
+        className="h-[130px] md:h-[165px] bg-cover bg-center bg-fixed max-md:bg-scroll relative"
         style={{
           backgroundImage: "url('/backgrounds/MackenzieCarpenter_PoolParallax.jpg')",
         }}
