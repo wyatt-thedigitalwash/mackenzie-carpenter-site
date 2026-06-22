@@ -56,8 +56,8 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full antialiased">
       <head>
-        {/* ADOBE FONTS KIT: replace with <link rel="stylesheet" href="https://use.typekit.net/KITID.css"> when kit is ready */}
         <link rel="preconnect" href="https://use.typekit.net" crossOrigin="anonymous" />
+        <link rel="stylesheet" href="https://use.typekit.net/ese4jod.css" />
         <link
           rel="preload"
           href="/fonts/Switzer-Regular.woff2"
