@@ -6,8 +6,8 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const SLIDES = [
   {
-    desktop: "/banners/MackenzieCarpenter_HeartThatDontBreak_DesktopPreSaveNow.jpg",
-    mobile: "/banners/MackenzieCarpenter_HeartThatDontBreak_MobilePreSaveNow.jpg",
+    desktop: "/banners/MackenzieCarpenter_HeartThatDontBreak_OutNowDesktop.jpg",
+    mobile: "/banners/MackenzieCarpenter_HeartThatDontBreak_OutNowMobile.jpg",
     href: "https://mackenziecarpenter.ffm.to/heartthatdontbreak.OWE",
     alt: "Heart That Don't Break - Pre-Save Now",
   },
