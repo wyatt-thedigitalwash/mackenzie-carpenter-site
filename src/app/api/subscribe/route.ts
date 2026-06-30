@@ -110,6 +110,12 @@ export async function POST(request: Request) {
   if (country) mergeFields.MMERGE12 = country;
   if (zip) mergeFields.MMERGE14 = zip;
 
+  // ---------------------------------------------------------------
+  // STEP 1 — MAILCHIMP
+  // Uses status_if_new so new subscribers are opted in while
+  // existing members (possibly from a different artist) keep their
+  // current status and just get the tag / merge-field update.
+  // ---------------------------------------------------------------
   let mailchimpOk = false;
 
   try {
@@ -119,7 +125,6 @@ export async function POST(request: Request) {
       body: JSON.stringify({
         email_address: email,
         status_if_new: "subscribed",
-        status: "subscribed",
         tags: ["Mackenzie Carpenter"],
         ...(Object.keys(mergeFields).length > 0 && {
           merge_fields: mergeFields,
@@ -144,7 +149,6 @@ export async function POST(request: Request) {
           body: JSON.stringify({
             email_address: email,
             status_if_new: "subscribed",
-            status: "subscribed",
           }),
         });
         if (retry.ok) {
@@ -157,15 +161,10 @@ export async function POST(request: Request) {
     }
   } catch (err) {
     console.error("[Mailchimp] Fetch error:", err);
-    mailchimpOk = false;
-  }
-
-  if (!mailchimpOk) {
-    return NextResponse.json({ ok: false }, { status: 500 });
   }
 
   // ---------------------------------------------------------------
-  // STEP 2 — LAYLO (fire-and-forget, only if Mailchimp succeeded)
+  // STEP 2 — LAYLO (fire-and-forget, runs regardless of Mailchimp)
   // A Laylo failure must never affect the user-facing response.
   // ---------------------------------------------------------------
   try {
@@ -205,6 +204,11 @@ export async function POST(request: Request) {
     }
   } catch {
     // Laylo errors are silently swallowed
+  }
+
+  // Succeed if at least one service accepted the subscription
+  if (!mailchimpOk) {
+    console.error("[Subscribe] Mailchimp failed but Laylo was attempted");
   }
 
   return NextResponse.json({ ok: true });
