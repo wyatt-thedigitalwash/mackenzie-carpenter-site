@@ -27,6 +27,14 @@
   --color-gold: #BB6E20;
   --font-heading: "big-caslon-fb", serif;
   --font-body: "Switzer", "Albert Sans", sans-serif;
+
+  /* Design tokens consumed by the legal / consent components. Mapped to the
+     Mackenzie Carpenter palette: black surfaces, ivory text, gold accent. */
+  --background-primary: #000000;
+  --background-alt: #000000;
+  --text-header: #F5ECE1;
+  --text-body: #F5ECE1;
+  --text-accent: #F5ECE1;
 }
 
 @theme inline {
@@ -38,6 +46,15 @@
   --color-gold: #BB6E20;
   --font-heading: "big-caslon-fb", serif;
   --font-sans: "Switzer", "Albert Sans", sans-serif;
+
+  /* Aliases so the ported legal/consent components resolve to this site's system */
+  --color-background-primary: var(--background-primary);
+  --color-background-alt: var(--background-alt);
+  --color-text-header: var(--text-header);
+  --color-text-body: var(--text-body);
+  --color-text-accent: var(--text-accent);
+  --font-display: "big-caslon-fb", serif;
+  --font-body: "Switzer", "Albert Sans", sans-serif;
 }
 
 body, p, li, td, th, label, input, select, textarea, button {
@@ -442,4 +459,53 @@ section[data-bg="dark"] + section[data-bg="dark"] {
   text-decoration: none;
   outline: 2px solid #BB6E20;
   outline-offset: 2px;
+}
+
+/* Legal / Policy Pages
+   Hyperlinks inside legal copy use the Gold accent, underlined, so they read
+   clearly as links against the black background while staying on-brand. */
+.legal-prose a {
+  color: #BB6E20;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-thickness: 1px;
+  transition: opacity 200ms;
+  word-break: break-word;
+}
+.legal-prose a:hover {
+  opacity: 0.7;
+}
+
+/* Cookie Consent / Terms Gate Buttons
+   Flat rectangular per SITE.md: Ivory fill / black text primary, transparent /
+   Ivory border ghost. No pills, no gradients. */
+.cc-btn {
+  display: block;
+  width: 100%;
+  padding: 0.6rem 1rem;
+  font-family: var(--font-body);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  text-align: center;
+  border: 1px solid rgba(245, 236, 225, 0.5);
+  transition: all 200ms;
+  cursor: pointer;
+}
+.cc-btn-primary {
+  background: #F5ECE1;
+  color: #000000;
+  border-color: #F5ECE1;
+}
+.cc-btn-primary:hover {
+  background: transparent;
+  color: #F5ECE1;
+}
+.cc-btn-ghost {
+  background: transparent;
+  color: #F5ECE1;
+}
+.cc-btn-ghost:hover {
+  background: #F5ECE1;
+  color: #000000;
 }

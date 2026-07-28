@@ -1,4 +1,15 @@
+import Link from "next/link";
 import SocialIcons from "./SocialIcons";
+import CookieChoicesLink from "@/components/legal/CookieChoicesLink";
+
+const FOOTER_LINKS = [
+  { label: "Terms", href: "/legal/terms" },
+  { label: "Privacy", href: "/legal/privacy" },
+  { label: "Copyright (DMCA)", href: "/legal/dmca" },
+  { label: "Cybersecurity", href: "/legal/cybersecurity" },
+  { label: "TCPA", href: "/legal/tcpa" },
+  { label: "Do Not Sell My Personal Information", href: "/legal/privacy#s10-2" },
+];
 
 export default function Footer() {
   return (
@@ -11,41 +22,18 @@ export default function Footer() {
         </p>
 
         <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[11px] uppercase tracking-widest text-blush/70">
-          <a
-            href="https://www.bigmachinerecords.com/terms"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="transition-colors hover:text-ivory"
-          >
-            Terms
-          </a>
-          <span className="text-ivory/30">/</span>
-          <a
-            href="https://www.bigmachinerecords.com/privacy"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="transition-colors hover:text-ivory"
-          >
-            Do Not Sell My Personal Information
-          </a>
-          <span className="text-ivory/30">/</span>
-          <a
-            href="https://www.bigmachinerecords.com/privacy"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="transition-colors hover:text-ivory"
-          >
-            Privacy
-          </a>
-          <span className="text-ivory/30">/</span>
-          <a
-            href="https://www.bigmachinerecords.com/privacy"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="transition-colors hover:text-ivory"
-          >
-            Cookie Choices
-          </a>
+          {FOOTER_LINKS.map((link, i) => (
+            <span key={link.label} className="flex items-center gap-x-3">
+              {i > 0 && <span className="text-ivory/30">/</span>}
+              <Link href={link.href} className="transition-colors hover:text-ivory">
+                {link.label}
+              </Link>
+            </span>
+          ))}
+          <span className="flex items-center gap-x-3">
+            <span className="text-ivory/30">/</span>
+            <CookieChoicesLink className="uppercase tracking-widest transition-colors hover:text-ivory" />
+          </span>
         </div>
       </div>
     </footer>

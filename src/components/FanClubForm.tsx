@@ -1,410 +1,195 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { COUNTRIES } from "@/lib/countries";
+import { SMS_COUNTRIES } from "@/lib/subscribe-validation";
 
-type Status = "idle" | "loading" | "success" | "error";
+type FormStatus = "idle" | "loading" | "success" | "error";
+type ErrorField = "email" | "phone" | "";
 
-function formatPhone(raw: string): string {
-  const digits = raw.replace(/\D/g, "").slice(0, 10);
-  if (digits.length === 0) return "";
-  if (digits.length <= 3) return `(${digits}`;
-  if (digits.length <= 6) return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
-  return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+// Mackenzie Carpenter design system: black background, ivory text, gold focus.
+const baseInput =
+  "w-full h-[50px] bg-ivory/10 border text-ivory placeholder:text-ivory/40 px-4 py-3 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold transition-colors appearance-none";
+
+const DEFAULT_SUCCESS =
+  "You're subscribed. Check your phone for a text and reply to confirm SMS updates.";
+
+// Keep only digits and auto-format a US number as NXX-NXX-XXXX as the fan types.
+// Handles pastes that include a leading country code (1 or +1) or punctuation.
+function formatUsPhone(value: string): string {
+  let d = value.replace(/\D/g, "");
+  if (d.length === 11 && d.startsWith("1")) d = d.slice(1);
+  d = d.slice(0, 10);
+  if (d.length <= 3) return d;
+  if (d.length <= 6) return `${d.slice(0, 3)}-${d.slice(3)}`;
+  return `${d.slice(0, 3)}-${d.slice(3, 6)}-${d.slice(6)}`;
 }
 
-const COUNTRIES = [
-  "United States",
-  "Afghanistan",
-  "Albania",
-  "Algeria",
-  "Andorra",
-  "Angola",
-  "Antigua and Barbuda",
-  "Argentina",
-  "Armenia",
-  "Australia",
-  "Austria",
-  "Azerbaijan",
-  "Bahamas",
-  "Bahrain",
-  "Bangladesh",
-  "Barbados",
-  "Belarus",
-  "Belgium",
-  "Belize",
-  "Benin",
-  "Bhutan",
-  "Bolivia",
-  "Bosnia and Herzegovina",
-  "Botswana",
-  "Brazil",
-  "Brunei",
-  "Bulgaria",
-  "Burkina Faso",
-  "Burundi",
-  "Cabo Verde",
-  "Cambodia",
-  "Cameroon",
-  "Canada",
-  "Central African Republic",
-  "Chad",
-  "Chile",
-  "China",
-  "Colombia",
-  "Comoros",
-  "Congo",
-  "Costa Rica",
-  "Croatia",
-  "Cuba",
-  "Cyprus",
-  "Czech Republic",
-  "Denmark",
-  "Djibouti",
-  "Dominica",
-  "Dominican Republic",
-  "Ecuador",
-  "Egypt",
-  "El Salvador",
-  "Equatorial Guinea",
-  "Eritrea",
-  "Estonia",
-  "Eswatini",
-  "Ethiopia",
-  "Fiji",
-  "Finland",
-  "France",
-  "Gabon",
-  "Gambia",
-  "Georgia",
-  "Germany",
-  "Ghana",
-  "Greece",
-  "Grenada",
-  "Guatemala",
-  "Guinea",
-  "Guinea-Bissau",
-  "Guyana",
-  "Haiti",
-  "Honduras",
-  "Hungary",
-  "Iceland",
-  "India",
-  "Indonesia",
-  "Iran",
-  "Iraq",
-  "Ireland",
-  "Israel",
-  "Italy",
-  "Jamaica",
-  "Japan",
-  "Jordan",
-  "Kazakhstan",
-  "Kenya",
-  "Kiribati",
-  "Kosovo",
-  "Kuwait",
-  "Kyrgyzstan",
-  "Laos",
-  "Latvia",
-  "Lebanon",
-  "Lesotho",
-  "Liberia",
-  "Libya",
-  "Liechtenstein",
-  "Lithuania",
-  "Luxembourg",
-  "Madagascar",
-  "Malawi",
-  "Malaysia",
-  "Maldives",
-  "Mali",
-  "Malta",
-  "Marshall Islands",
-  "Mauritania",
-  "Mauritius",
-  "Mexico",
-  "Micronesia",
-  "Moldova",
-  "Monaco",
-  "Mongolia",
-  "Montenegro",
-  "Morocco",
-  "Mozambique",
-  "Myanmar",
-  "Namibia",
-  "Nauru",
-  "Nepal",
-  "Netherlands",
-  "New Zealand",
-  "Nicaragua",
-  "Niger",
-  "Nigeria",
-  "North Korea",
-  "North Macedonia",
-  "Norway",
-  "Oman",
-  "Pakistan",
-  "Palau",
-  "Palestine",
-  "Panama",
-  "Papua New Guinea",
-  "Paraguay",
-  "Peru",
-  "Philippines",
-  "Poland",
-  "Portugal",
-  "Qatar",
-  "Romania",
-  "Russia",
-  "Rwanda",
-  "Saint Kitts and Nevis",
-  "Saint Lucia",
-  "Saint Vincent and the Grenadines",
-  "Samoa",
-  "San Marino",
-  "Sao Tome and Principe",
-  "Saudi Arabia",
-  "Senegal",
-  "Serbia",
-  "Seychelles",
-  "Sierra Leone",
-  "Singapore",
-  "Slovakia",
-  "Slovenia",
-  "Solomon Islands",
-  "Somalia",
-  "South Africa",
-  "South Korea",
-  "South Sudan",
-  "Spain",
-  "Sri Lanka",
-  "Sudan",
-  "Suriname",
-  "Sweden",
-  "Switzerland",
-  "Syria",
-  "Taiwan",
-  "Tajikistan",
-  "Tanzania",
-  "Thailand",
-  "Timor-Leste",
-  "Togo",
-  "Tonga",
-  "Trinidad and Tobago",
-  "Tunisia",
-  "Turkey",
-  "Turkmenistan",
-  "Tuvalu",
-  "Uganda",
-  "Ukraine",
-  "United Arab Emirates",
-  "United Kingdom",
-  "Uruguay",
-  "Uzbekistan",
-  "Vanuatu",
-  "Vatican City",
-  "Venezuela",
-  "Vietnam",
-  "Yemen",
-  "Zambia",
-  "Zimbabwe",
-];
-
 export default function FanClubForm() {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [zip, setZip] = useState("");
-  const [country, setCountry] = useState("");
-  const [honeypot, setHoneypot] = useState("");
-  const [status, setStatus] = useState<Status>("idle");
-  const [errorMsg, setErrorMsg] = useState("");
+  const [zipCode, setZipCode] = useState("");
+  const [country, setCountry] = useState("United States");
+  const [website, setWebsite] = useState(""); // honeypot
+  const [status, setStatus] = useState<FormStatus>("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [errorField, setErrorField] = useState<ErrorField>("");
+  const [successMessage, setSuccessMessage] = useState("");
 
-  function handlePhoneChange(value: string) {
-    setPhone(formatPhone(value));
-  }
+  const emailRef = useRef<HTMLInputElement>(null);
+  const phoneRef = useRef<HTMLInputElement>(null);
 
-  async function handleSubmit() {
-    setErrorMsg("");
-
-    if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
-      setErrorMsg("Please enter a valid email address.");
-      return;
-    }
-
-    if (!zip.trim() || !country) {
-      setErrorMsg("Please fill in all required fields.");
-      return;
-    }
-
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (status === "loading") return; // guard double-submit
     setStatus("loading");
+    setErrorMessage("");
+    setErrorField("");
 
     try {
       const res = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: email.trim(),
-          phone: phone.trim(),
-          zip: zip.trim(),
-          country: country.trim(),
-          website: honeypot,
-        }),
+        body: JSON.stringify({ firstName, lastName, email, phone, zipCode, country, website }),
       });
+      const data = await res.json().catch(() => null);
 
-      const data = await res.json();
-
-      if (data.ok) {
+      if (res.ok) {
+        setSuccessMessage(data?.message || DEFAULT_SUCCESS);
         setStatus("success");
-      } else {
-        setStatus("error");
-        setErrorMsg(data.error ?? "Something went wrong. Please try again.");
+        setFirstName(""); setLastName(""); setEmail(""); setPhone(""); setZipCode("");
+        setCountry("United States");
+        return;
       }
-    } catch {
+
+      const field: ErrorField =
+        data?.field === "email" || data?.field === "phone" ? data.field : "";
+      setErrorMessage(data?.error || "Something went wrong. Please try again.");
+      setErrorField(field);
       setStatus("error");
-      setErrorMsg("Something went wrong. Please try again.");
+      requestAnimationFrame(() => {
+        if (field === "email") emailRef.current?.focus();
+        else if (field === "phone") phoneRef.current?.focus();
+      });
+    } catch {
+      setErrorMessage("Something went wrong. Please try again.");
+      setStatus("error");
     }
   }
 
   if (status === "success") {
     return (
-      <p className="text-ivory text-xl tracking-wide" role="status" aria-live="polite">
-        Thanks for signing up!
+      <p
+        className="text-ivory text-lg tracking-wide max-w-md mx-auto py-4"
+        role="status"
+        aria-live="polite"
+      >
+        {successMessage || DEFAULT_SUCCESS}
       </p>
     );
   }
 
-  const hasError = status === "error" && !!errorMsg;
+  const fieldClass = (field?: ErrorField) =>
+    `${baseInput} ${
+      field && errorField === field ? "border-red" : "border-ivory/20 focus-visible:border-ivory/50"
+    }`;
 
-  const inputClass =
-    "w-full h-[50px] bg-ivory/10 border border-ivory/20 text-ivory placeholder:text-ivory/40 px-4 py-3 text-base focus-visible:outline-none focus-visible:border-ivory/50 focus-visible:ring-2 focus-visible:ring-gold transition-colors appearance-none";
+  // US/Canada get the +1 auto-formatted REQUIRED phone; elsewhere it's optional/plain
+  // because Laylo can only text North American numbers.
+  const isNorthAmerica = SMS_COUNTRIES.has(country);
 
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        handleSubmit();
-      }}
-      className="flex flex-col gap-4 max-w-md mx-auto"
-      noValidate
-    >
-      {/* Honeypot field - hidden from humans, caught by bots */}
-      <div className="absolute opacity-0 pointer-events-none" style={{ position: "absolute", left: "-9999px" }} aria-hidden="true">
+    <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-4 max-w-md mx-auto text-left">
+      {/* Honeypot — visually hidden, off-screen */}
+      <div className="absolute -left-[9999px]" aria-hidden="true">
         <label htmlFor="fan-website">Website</label>
-        <input
-          id="fan-website"
-          type="text"
-          name="website"
-          value={honeypot}
-          onChange={(e) => setHoneypot(e.target.value)}
-          tabIndex={-1}
-          autoComplete="off"
-        />
+        <input id="fan-website" type="text" name="website" tabIndex={-1}
+          autoComplete="off" value={website} onChange={(e) => setWebsite(e.target.value)} />
       </div>
 
-      <label htmlFor="fan-email" className="sr-only">Email</label>
-      <input
-        id="fan-email"
-        type="email"
-        placeholder="Email *"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        className={inputClass}
-        aria-required="true"
-        aria-invalid={hasError && !email.trim() ? "true" : undefined}
-        aria-describedby={hasError ? "form-error" : undefined}
-      />
-      <label htmlFor="fan-phone" className="sr-only">Phone Number (optional)</label>
-      <input
-        id="fan-phone"
-        type="tel"
-        placeholder="Phone Number (optional)"
-        value={phone}
-        onChange={(e) => handlePhoneChange(e.target.value)}
-        className={inputClass}
-      />
+      <div className="flex gap-4">
+        <div className="flex-1">
+          <label htmlFor="fan-first" className="sr-only">First Name</label>
+          <input id="fan-first" name="firstName" placeholder="First Name" autoComplete="given-name"
+            value={firstName} onChange={(e) => setFirstName(e.target.value)} className={fieldClass()} />
+        </div>
+        <div className="flex-1">
+          <label htmlFor="fan-last" className="sr-only">Last Name</label>
+          <input id="fan-last" name="lastName" placeholder="Last Name" autoComplete="family-name"
+            value={lastName} onChange={(e) => setLastName(e.target.value)} className={fieldClass()} />
+        </div>
+      </div>
+
+      <div>
+        <label htmlFor="fan-email" className="sr-only">Email</label>
+        <input ref={emailRef} id="fan-email" type="email" name="email" placeholder="Email *"
+          required aria-required="true" aria-invalid={errorField === "email"}
+          aria-describedby={errorField ? "form-error" : undefined} autoComplete="email"
+          value={email} onChange={(e) => setEmail(e.target.value)} className={fieldClass("email")} />
+      </div>
+
+      <div>
+        <label htmlFor="fan-phone" className="sr-only">Phone Number</label>
+        {isNorthAmerica ? (
+          <div className={`flex items-stretch h-[50px] bg-ivory/10 border ${errorField === "phone" ? "border-red" : "border-ivory/20 focus-within:border-ivory/50 focus-within:ring-2 focus-within:ring-gold"} transition-colors`}>
+            <span className="flex items-center pl-4 pr-2 text-ivory/40 text-base select-none" aria-hidden="true">+1</span>
+            <input ref={phoneRef} id="fan-phone" type="tel" name="phone" inputMode="numeric"
+              placeholder="555-555-5555" required aria-required="true" aria-invalid={errorField === "phone"}
+              aria-describedby={errorField ? "form-error" : undefined} autoComplete="tel"
+              value={phone} onChange={(e) => setPhone(formatUsPhone(e.target.value))}
+              className="bg-transparent text-ivory placeholder:text-ivory/40 py-3 pr-4 w-full text-base focus-visible:outline-none border-0" />
+          </div>
+        ) : (
+          <input ref={phoneRef} id="fan-phone" type="tel" name="phone" inputMode="tel"
+            placeholder="Phone Number (optional)" aria-invalid={errorField === "phone"}
+            aria-describedby={errorField ? "form-error" : undefined} autoComplete="tel"
+            value={phone} onChange={(e) => setPhone(e.target.value)} className={fieldClass("phone")} />
+        )}
+      </div>
+
       <div className="flex gap-4">
         <div className="flex-1">
           <label htmlFor="fan-zip" className="sr-only">Zip Code</label>
-          <input
-            id="fan-zip"
-            type="text"
-            placeholder="Zip Code *"
-            value={zip}
-            onChange={(e) => setZip(e.target.value)}
-            className={inputClass}
-            aria-required="true"
-            aria-invalid={hasError && !zip.trim() ? "true" : undefined}
-            aria-describedby={hasError ? "form-error" : undefined}
-          />
+          <input id="fan-zip" name="zipCode" inputMode="numeric" placeholder="Zip Code"
+            autoComplete="postal-code" value={zipCode} onChange={(e) => setZipCode(e.target.value)} className={fieldClass()} />
         </div>
         <div className="flex-1">
           <label htmlFor="fan-country" className="sr-only">Country</label>
-          <select
-            id="fan-country"
-            value={country}
-            onChange={(e) => setCountry(e.target.value)}
-            className={`${inputClass} pr-12${country === "" ? " text-ivory/40" : ""}`}
-            aria-required="true"
-            aria-invalid={hasError && !country ? "true" : undefined}
-            aria-describedby={hasError ? "form-error" : undefined}
-          >
-            <option value="" disabled>Country *</option>
+          <select id="fan-country" name="country" value={country} onChange={(e) => setCountry(e.target.value)}
+            className={`${fieldClass()} pr-12`}>
             {COUNTRIES.map((c) => (
-              <option key={c} value={c} className="bg-black text-ivory">
-                {c}
-              </option>
+              <option key={c} value={c} className="bg-black text-ivory">{c}</option>
             ))}
           </select>
         </div>
       </div>
 
-      <div aria-live="assertive">
-        {errorMsg && (
-          <p id="form-error" className="text-red text-sm" role="alert">{errorMsg}</p>
-        )}
-      </div>
-
-      <button
-        type="submit"
-        disabled={status === "loading"}
-        className="bg-ivory text-black uppercase tracking-widest text-sm font-semibold px-8 py-4 transition-opacity hover:opacity-90 disabled:opacity-50"
-      >
+      <button type="submit" disabled={status === "loading"}
+        className="bg-ivory text-black uppercase tracking-widest text-sm font-semibold px-8 py-4 transition-opacity hover:opacity-90 disabled:opacity-50">
         {status === "loading" ? "Submitting..." : "Sign Up"}
       </button>
 
-      <p className="text-ivory/50 text-xs leading-relaxed mt-2">
-        By signing up you agree to Laylo&apos;s{" "}
-        <a
-          href="https://laylo.com/terms"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="underline hover:text-ivory/70"
-        >
-          Terms of Service
-          <span className="sr-only"> (opens in new tab)</span>
-        </a>{" "}
+      {/* Legally required when collecting phone via Laylo — keep this copy + both links. */}
+      <p className="text-ivory/50 text-xs leading-relaxed mt-1">
+        By subscribing you agree to receive email and recurring automated marketing text
+        messages. We will text you once to confirm your number, reply to opt in. Consent is
+        not a condition of purchase. Message and data rates may apply. See Laylo&apos;s{" "}
+        <a href="https://laylo.com/terms" target="_blank" rel="noopener noreferrer" className="underline hover:text-ivory/70">Terms<span className="sr-only"> (opens in new tab)</span></a>{" "}
         and{" "}
-        <a
-          href="https://laylo.com/privacy"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="underline hover:text-ivory/70"
-        >
-          Privacy Policy
-          <span className="sr-only"> (opens in new tab)</span>
-        </a>
+        <a href="https://laylo.com/privacy" target="_blank" rel="noopener noreferrer" className="underline hover:text-ivory/70">Privacy Policy<span className="sr-only"> (opens in new tab)</span></a>
         , and the{" "}
-        <a
-          href="https://www.bigmachinerecords.com/privacy"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="underline hover:text-ivory/70"
-        >
-          Big Machine Records Privacy Policy
-          <span className="sr-only"> (opens in new tab)</span>
-        </a>
-        .
+        <a href="https://www.bigmachinerecords.com/privacy" target="_blank" rel="noopener noreferrer" className="underline hover:text-ivory/70">Big Machine Records Privacy Policy<span className="sr-only"> (opens in new tab)</span></a>.
       </p>
+
+      <div aria-live="assertive">
+        {status === "error" && (
+          <p id="form-error" role="alert" className="text-red text-sm">
+            {errorMessage || "Something went wrong. Please try again."}
+          </p>
+        )}
+      </div>
     </form>
   );
 }

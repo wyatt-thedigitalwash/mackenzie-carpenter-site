@@ -4,6 +4,9 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileBottomBar from "@/components/MobileBottomBar";
 import MetaPixelPageView from "@/components/MetaPixelPageView";
+import CookieConsent from "@/components/consent/CookieConsent";
+import TermsGate from "@/components/consent/TermsGate";
+import AnchorScroll from "@/components/shared/AnchorScroll";
 import { MenuProvider } from "@/lib/MenuContext";
 import "./globals.css";
 
@@ -174,12 +177,19 @@ fbq('track','PageView');`}
         </a>
 
         <MetaPixelPageView />
+        <AnchorScroll />
 
         <MenuProvider>
           <Header />
           <main id="main-content" className="flex-1">{children}</main>
           <Footer />
           <MobileBottomBar />
+          {/* Cookie consent banner. Shows once per new visitor, persisted in
+              localStorage; injects nothing before consent is granted. */}
+          <CookieConsent />
+          {/* Arbitration / class-action notice, shown once right after the cookie
+              decision so it is never buried only in the footer. */}
+          <TermsGate />
         </MenuProvider>
       </body>
     </html>
