@@ -6,6 +6,12 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const SLIDES = [
   {
+    desktop: "/banners/MackenzieCarpenter_KindaWantYourMan_PreSaveNowHero_Desktop.jpg",
+    mobile: "/banners/MackenzieCarpenter_KindaWantYourMan_PreSaveNowHero_Mobile.jpg",
+    href: "https://mackenziecarpenter.ffm.to/kindawantyourman.ODL",
+    alt: "Kinda Want Your Man - Pre-Save Now",
+  },
+  {
     desktop: "/banners/MackenzieCarpenter_HeartThatDontBreak_OutNowDesktop.jpg",
     mobile: "/banners/MackenzieCarpenter_HeartThatDontBreak_OutNowMobile.jpg",
     href: "https://mackenziecarpenter.ffm.to/heartthatdontbreak.OWE",
