@@ -27,6 +27,7 @@ export const metadata: Metadata = {
 };
 
 const RELEASES = [
+  { title: "Kinda Want Your Man", cover: "MackenzieCarpenter_KindaWantYourMan_Cover.jpg", href: "https://mackenziecarpenter.ffm.to/kindawantyourman.ODL" },
   { title: "All In Already", cover: "MackenzieCarpenter_AllInAlready_Cover.jpg", href: "https://mackenziecarpenter.ffm.to/allinalready.OWE" },
   { title: "Drunk Cigs", cover: "MackenzieCarpenter_DrunkCigs_Cover.jpg", href: "https://mackenziecarpenter.lnk.to/DrunkCigsWE" },
   { title: "Hey Country Queen", cover: "MackenzieCarpenter_HotCountryQueen_Cover.jpg", href: "https://mackenzie.lnk.to/HeyCountryQueenWE" },

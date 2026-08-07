@@ -4,10 +4,12 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileBottomBar from "@/components/MobileBottomBar";
 import MetaPixelPageView from "@/components/MetaPixelPageView";
+import TikTokPixelPageView from "@/components/TikTokPixelPageView";
 import CookieConsent from "@/components/consent/CookieConsent";
 import TermsGate from "@/components/consent/TermsGate";
 import AnchorScroll from "@/components/shared/AnchorScroll";
 import { MenuProvider } from "@/lib/MenuContext";
+import { HeaderThemeProvider } from "@/lib/HeaderThemeContext";
 import "./globals.css";
 
 // TODO: Wire Switzer-Regular via next/font/local once the regular weight
@@ -114,6 +116,17 @@ fbq('init','1858545644702596');
 fbq('init','327646454344180');
 fbq('track','PageView');`}
         </Script>
+
+        {/* TikTok Pixel */}
+        <Script id="tiktok-pixel" strategy="afterInteractive">
+          {`!function (w, d, t) {
+w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(
+var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script")
+;n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
+ttq.load('D26CTKBC77U110BN94C0');
+ttq.page();
+}(window, document, 'ttq');`}
+        </Script>
       </head>
       <body className="min-h-full flex flex-col">
         {/* Google Tag Manager (noscript) */}
@@ -177,11 +190,14 @@ fbq('track','PageView');`}
         </a>
 
         <MetaPixelPageView />
+        <TikTokPixelPageView />
         <AnchorScroll />
 
         <MenuProvider>
-          <Header />
-          <main id="main-content" className="flex-1">{children}</main>
+          <HeaderThemeProvider>
+            <Header />
+            <main id="main-content" className="flex-1">{children}</main>
+          </HeaderThemeProvider>
           <Footer />
           <MobileBottomBar />
           {/* Cookie consent banner. Shows once per new visitor, persisted in

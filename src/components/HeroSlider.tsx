@@ -3,13 +3,23 @@
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useHeaderTheme, type HeaderTheme } from "@/lib/HeaderThemeContext";
 
-const SLIDES = [
+// headerTheme: "dark" on light banners so the header logo, nav and social
+// icons switch from blush to black while that slide is showing.
+const SLIDES: {
+  desktop: string;
+  mobile: string;
+  href: string;
+  alt: string;
+  headerTheme?: HeaderTheme;
+}[] = [
   {
-    desktop: "/banners/MackenzieCarpenter_KindaWantYourMan_PreSaveNowHero_Desktop.jpg",
-    mobile: "/banners/MackenzieCarpenter_KindaWantYourMan_PreSaveNowHero_Mobile.jpg",
+    desktop: "/banners/MackenzieCarpenter_KindaWantYourMan_OutNow.jpg",
+    mobile: "/banners/MackenzieCarpenter_KindaWantYourMan_OutNowMobile.jpg",
     href: "https://mackenziecarpenter.ffm.to/kindawantyourman.ODL",
-    alt: "Kinda Want Your Man - Pre-Save Now",
+    alt: "Kinda Want Your Man - Out Now",
+    headerTheme: "dark",
   },
   {
     desktop: "/banners/MackenzieCarpenter_HeartThatDontBreak_OutNowDesktop.jpg",
@@ -40,6 +50,7 @@ const SLIDES = [
 export default function HeroSlider() {
   const [current, setCurrent] = useState(0);
   const [paused, setPaused] = useState(false);
+  const { setHeaderTheme } = useHeaderTheme();
 
   const next = useCallback(() => {
     setCurrent((prev) => (prev + 1) % SLIDES.length);
@@ -54,6 +65,13 @@ export default function HeroSlider() {
     const timer = setInterval(next, 6000);
     return () => clearInterval(timer);
   }, [paused, next]);
+
+  // Keep the floating header legible against the active slide, and hand it back
+  // to the default when the slider leaves the page.
+  useEffect(() => {
+    setHeaderTheme(SLIDES[current].headerTheme ?? "default");
+    return () => setHeaderTheme("default");
+  }, [current, setHeaderTheme]);
 
   return (
     <section

@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import SocialIcons from "./SocialIcons";
 import { useMenu } from "@/lib/MenuContext";
+import { useHeaderTheme } from "@/lib/HeaderThemeContext";
 
 const NAV_ITEMS = [
   { label: "Tour", href: "/tour" },
@@ -16,9 +17,11 @@ const NAV_ITEMS = [
   { label: "Fan Club", href: "/fan-club" },
 ];
 
-function HamburgerIcon({ open }: { open: boolean }) {
-  const barBase =
-    "block w-[24px] h-[2px] bg-ivory rounded-full motion-safe:transition-all motion-safe:duration-300 motion-safe:ease-in-out";
+function HamburgerIcon({ open, dark }: { open: boolean; dark: boolean }) {
+  // While the drawer is open the bars sit on its black backdrop, so they stay
+  // ivory regardless of the slide behind the header.
+  const barColor = !open && dark ? "bg-black" : "bg-ivory";
+  const barBase = `block w-[24px] h-[2px] ${barColor} rounded-full motion-safe:transition-all motion-safe:duration-300 motion-safe:ease-in-out`;
   return (
     <div className="relative w-[24px] h-[18px] flex flex-col justify-between" aria-hidden="true">
       <span
@@ -40,6 +43,10 @@ function HamburgerIcon({ open }: { open: boolean }) {
 
 export default function Header() {
   const { menuOpen, setMenuOpen } = useMenu();
+  const { headerTheme } = useHeaderTheme();
+  // Black treatment for light banners; the drawer supplies its own dark
+  // backdrop, so it always uses the default blush.
+  const dark = headerTheme === "dark" && !menuOpen;
   const [drawerVisible, setDrawerVisible] = useState(false);
   const drawerRef = useRef<HTMLDivElement>(null);
   const hamburgerRef = useRef<HTMLButtonElement>(null);
@@ -131,7 +138,9 @@ export default function Header() {
             alt="Mackenzie Carpenter logo"
             width={300}
             height={105}
-            className="h-[108px] w-auto md:h-[139px]"
+            className={`h-[108px] w-auto md:h-[139px] transition-[filter] duration-500 ${
+              dark ? "brightness-0" : ""
+            }`}
             priority
           />
         </Link>
@@ -142,33 +151,33 @@ export default function Header() {
           className="hidden xl:flex items-center gap-7 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
           style={{ fontFamily: 'var(--font-heading)' }}
         >
-          {NAV_ITEMS.map((item) =>
-            item.external ? (
+          {NAV_ITEMS.map((item) => {
+            const navClass = `text-[24px] tracking-wide transition-colors whitespace-nowrap ${
+              dark ? "text-black hover:text-black/60" : "text-blush hover:text-ivory"
+            }`;
+
+            return item.external ? (
               <a
                 key={item.label}
                 href={item.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blush text-[24px] tracking-wide transition-colors hover:text-ivory whitespace-nowrap"
+                className={navClass}
               >
                 {item.label}
                 <span className="sr-only"> (opens in new tab)</span>
               </a>
             ) : (
-              <Link
-                key={item.label}
-                href={item.href}
-                className="text-blush text-[24px] tracking-wide transition-colors hover:text-ivory whitespace-nowrap"
-              >
+              <Link key={item.label} href={item.href} className={navClass}>
                 {item.label}
               </Link>
-            )
-          )}
+            );
+          })}
         </nav>
 
         {/* Desktop social icons */}
         <div className="hidden xl:block relative z-10">
-          <SocialIcons size={25} />
+          <SocialIcons size={25} tone={dark ? "dark" : "default"} />
         </div>
 
         {/* Mobile hamburger / X morph */}
@@ -180,7 +189,7 @@ export default function Header() {
           aria-controls="mobile-menu"
           aria-label={menuOpen ? "Close menu" : "Open menu"}
         >
-          <HamburgerIcon open={menuOpen} />
+          <HamburgerIcon open={menuOpen} dark={dark} />
         </button>
       </div>
 

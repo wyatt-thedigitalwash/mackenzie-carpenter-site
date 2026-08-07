@@ -21,7 +21,19 @@ const SOCIAL_LINKS: { name: string; href: string; Icon: IconType }[] = [
   { name: "Amazon Music", href: "https://music.amazon.com/artists/B08QRYW4B1/mackenzie-carpenter", Icon: FaAmazon },
 ];
 
-export default function SocialIcons({ size = 20, className = "" }: { size?: number; className?: string }) {
+export default function SocialIcons({
+  size = 20,
+  className = "",
+  tone = "default",
+}: {
+  size?: number;
+  className?: string;
+  /** "dark" turns the icons black for use over a light background. */
+  tone?: "default" | "dark";
+}) {
+  const toneClass =
+    tone === "dark" ? "text-black hover:text-black/60" : "text-blush hover:text-ivory";
+
   return (
     <div className={`flex items-center gap-3.5 ${className}`}>
       {SOCIAL_LINKS.map((link) => (
@@ -31,7 +43,7 @@ export default function SocialIcons({ size = 20, className = "" }: { size?: numb
           target="_blank"
           rel="noopener noreferrer"
           aria-label={link.name}
-          className="text-blush transition-colors hover:text-ivory"
+          className={`transition-colors ${toneClass}`}
         >
           <link.Icon size={size} aria-hidden="true" />
           <span className="sr-only"> (opens in new tab)</span>
