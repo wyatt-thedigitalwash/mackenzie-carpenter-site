@@ -27,6 +27,7 @@ export const metadata: Metadata = {
 };
 
 const VIDEOS = [
+  { title: "Kinda Want Your Man (Official Video)", id: "XRTkVho-UZU" },
   { title: "All In Already (Official Video)", id: "tVf5CyQkwuQ" },
   { title: "Drunk Cigs", id: "B0xEZCRUrtU" },
   { title: "Gone Fishing", id: "WshkkG9oUnY" },
