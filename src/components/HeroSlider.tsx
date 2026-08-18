@@ -15,7 +15,7 @@ const SLIDES: {
   headerTheme?: HeaderTheme;
 }[] = [
   {
-    desktop: "/banners/MackenzieCarpenter_KindaWantYourMan_OutNow.jpg",
+    desktop: "/banners/MackenzieCarpenter_Updated_KindaWantYourMan_Desktop.jpg",
     mobile: "/banners/MackenzieCarpenter_KindaWantYourMan_OutNowMobile.jpg",
     href: "https://mackenziecarpenter.ffm.to/kindawantyourman.ODL",
     alt: "Kinda Want Your Man - Out Now",
