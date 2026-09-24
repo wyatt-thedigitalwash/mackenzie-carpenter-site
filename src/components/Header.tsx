@@ -13,7 +13,7 @@ const NAV_ITEMS = [
   { label: "Music", href: "/music" },
   { label: "Videos", href: "/videos" },
   { label: "About", href: "/about" },
-  { label: "Merch", href: "https://mackcarpmusic.square.site/", external: true },
+  { label: "Merch", href: "https://mackcarpmerch.myshopify.com/", external: true },
   { label: "Fan Club", href: "/fan-club" },
 ];
 

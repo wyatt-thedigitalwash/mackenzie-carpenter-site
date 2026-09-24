@@ -35,7 +35,7 @@ Nav items, in order: Tour, Music, Videos, About, Merch, Fan Club
 - Music -> /music
 - Videos -> /videos
 - About -> /about
-- Merch -> https://mackcarpmusic.square.site/ (external, new tab)
+- Merch -> https://mackcarpmerch.myshopify.com/ (external, new tab)
 - Fan Club -> /fan-club
 Social icons, top-right, in order: Instagram, Facebook, TikTok, X, YouTube, Spotify, Apple Music, Amazon Music.
 
