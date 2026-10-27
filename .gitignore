@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# shop (not launched yet, keep local only)
+/src/app/shop/
+/src/components/shop/
+/src/lib/merch/
+/public/merch/
