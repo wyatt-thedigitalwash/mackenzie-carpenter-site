@@ -15,6 +15,12 @@ const SLIDES: {
   headerTheme?: HeaderTheme;
 }[] = [
   {
+    desktop: "/banners/MackenzieCarpenter_BeAlright_TheBeerGirlAnthem_PreSave.jpg",
+    mobile: "/banners/MackenzieCarpenter_BeAlright_TheBeerGirlAnthem_PreSave_Vertical.jpg",
+    href: "https://mackenziecarpenter.ffm.to/bealrightthebeergirlanthem.OWE",
+    alt: "Be Alright (The Beer Girl Anthem) - Out October 30, Pre-Save Now",
+  },
+  {
     desktop: "/banners/MackenzieCarpenter_Updated_KindaWantYourMan_Desktop.jpg",
     mobile: "/banners/MackenzieCarpenter_KindaWantYourMan_OutNowMobile.jpg",
     href: "https://mackenziecarpenter.ffm.to/kindawantyourman.ODL",

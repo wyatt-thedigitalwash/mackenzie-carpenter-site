@@ -509,3 +509,30 @@ section[data-bg="dark"] + section[data-bg="dark"] {
   background: #F5ECE1;
   color: #000000;
 }
+
+/* Shop: lock page scroll while a modal dialog (quick view, bag) is open */
+html:has(dialog[open]) {
+  overflow: hidden;
+}
+
+/* Horizontal scrollers (shop filters, gallery thumbnails) without a visible bar */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Shop: bag count badge pops when an item is added */
+@keyframes bagBump {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.35); }
+  100% { transform: scale(1); }
+}
+
+/* Shop: featured tee timer bar. Animates the `scale` property (not transform)
+   to match Tailwind v4's scale-x utilities. */
+@keyframes heroProgress {
+  from { scale: 0 1; }
+  to { scale: 1 1; }
+}
