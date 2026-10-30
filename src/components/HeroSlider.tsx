@@ -15,10 +15,10 @@ const SLIDES: {
   headerTheme?: HeaderTheme;
 }[] = [
   {
-    desktop: "/banners/MackenzieCarpenter_BeAlright_TheBeerGirlAnthem_PreSave_NoLogo.jpg",
-    mobile: "/banners/MackenzieCarpenter_BeAlright_TheBeerGirlAnthem_PreSave_Vertical_NoLogo.jpg",
+    desktop: "/banners/MackenzieCarpenter_BeAlright_TheBeerGirlAnthem_OutNow_NoLogo.jpg",
+    mobile: "/banners/MackenzieCarpenter_BeAlright_TheBeerGirlAnthem_OutNow_Vertical_NoLogo.jpg",
     href: "https://mackenziecarpenter.ffm.to/bealrightthebeergirlanthem.OWE",
-    alt: "Be Alright (The Beer Girl Anthem) - Out October 30, Pre-Save Now",
+    alt: "Be Alright (The Beer Girl Anthem) - Out Now",
   },
   {
     desktop: "/banners/MackenzieCarpenter_Updated_KindaWantYourMan_Desktop.jpg",
@@ -31,7 +31,7 @@ const SLIDES: {
     desktop: "/banners/MackenzieCarpenter_HeartThatDontBreak_OutNowDesktop.jpg",
     mobile: "/banners/MackenzieCarpenter_HeartThatDontBreak_OutNowMobile.jpg",
     href: "https://mackenziecarpenter.ffm.to/heartthatdontbreak.OWE",
-    alt: "Heart That Don't Break - Pre-Save Now",
+    alt: "Heart That Don't Break - Out Now",
   },
   {
     desktop: "/banners/MackenzieCarpenter_HighPony_DesktopHero.jpg",
