@@ -27,10 +27,10 @@ export const metadata: Metadata = {
 };
 
 const RELEASES = [
-  { title: "Be Alright (The Beer Girl Anthem)", cover: "MackenzieCarpenter_BeAlright_TheBeerGirlAnthem_Cover.jpg", href: "https://mackenziecarpenter.ffm.to/bealrightthebeergirlanthem.OWE" },
-  { title: "Kinda Want Your Man", cover: "MackenzieCarpenter_KindaWantYourMan_Cover.jpg", href: "https://mackenziecarpenter.ffm.to/kindawantyourman.ODL" },
-  { title: "All In Already", cover: "MackenzieCarpenter_AllInAlready_Cover.jpg", href: "https://mackenziecarpenter.ffm.to/allinalready.OWE" },
-  { title: "Drunk Cigs", cover: "MackenzieCarpenter_DrunkCigs_Cover.jpg", href: "https://mackenziecarpenter.lnk.to/DrunkCigsWE" },
+  { title: "Be Alright (The Beer Girl Anthem)", cover: "MackenzieCarpenter_BeAlright_TheBeerGirlAnthem_Cover_Titled.jpg", href: "https://mackenziecarpenter.ffm.to/bealrightthebeergirlanthem.OWE" },
+  { title: "Kinda Want Your Man", cover: "MackenzieCarpenter_KindaWantYourMan_Cover_Titled.jpg", href: "https://mackenziecarpenter.ffm.to/kindawantyourman.ODL" },
+  { title: "All In Already", cover: "MackenzieCarpenter_AllInAlready_Cover_Titled.jpg", href: "https://mackenziecarpenter.ffm.to/allinalready.OWE" },
+  { title: "Drunk Cigs", cover: "MackenzieCarpenter_DrunkCigs_Cover_Titled.jpg", href: "https://mackenziecarpenter.lnk.to/DrunkCigsWE" },
   { title: "Hey Country Queen", cover: "MackenzieCarpenter_HotCountryQueen_Cover.jpg", href: "https://mackenzie.lnk.to/HeyCountryQueenWE" },
   { title: "I Wish You Would (ft. Midland)", cover: "MackenzieCarpenter_IWishYouWould_Cover.jpg", href: "https://mackenzie.lnk.to/IWishYouWouldWE" },
   { title: "Dozen Red Flags", cover: "MackenzieCarpenter_DozenRedFlags_Cover.jpg", href: "https://mackenzie.lnk.to/DozenRedFlagsWE" },
