@@ -101,29 +101,30 @@ Use the official Bandsintown widget. Artist ID: 15503409. app_id: umg_bigmachine
 All release covers open in a new tab.
 
 ## Videos (newest first, YouTube, modal playback)
-1. All In Already (Official Video) - tVf5CyQkwuQ
-2. Drunk Cigs - B0xEZCRUrtU
-3. Gone Fishing - WshkkG9oUnY
-4. Country Queen - PHoRr4cw3LU
-5. I Wish You Would ft. Midland - bdolHTaNDAg
-6. Dozen Red Flags - Na5K6qQN1bw
-7. Cowgirl Like Me (Lyric Video) - iWO0SHkVdKs
-8. Red Wine Blue (Lyric Video) - spHcr4Ip6xM
-9. The Other Side (Lyric Video) - LId-ce7UQ6w
-10. Guys Like You (Lyric Video) - JTPOtyu-AC4
-11. Boots On (Lyric Video) - PWrMDVcpv_k
-12. Only Girl (Official Music Video) - 2mtBQigLBC4
-13. Sound Of A Heartbreak (Lyric Video) - m2uA1oDe7HA
-14. Country Girls (Just Wanna Have Fun) (Remix) - JjmSlqVOM68
-15. Country Girls (Just Wanna Have Fun) (Official Music Video) - 61s35TCMOA4
-16. Introducing Mackenzie Carpenter (The Short Film) - 91zPhArt6NE
-17. Throw You Back - cEVVihU-D_k
-18. Introducing Mackenzie Carpenter (The Interview) - -Ddhxj3Yzng
-19. Don't Mess With Exes (Official Music Video) - aIQ_Fqsc720
-20. Jesus, I'm Jealous - nnWpHsaF-4s
-21. Huntin' Season (Official Music Video) - pOaumsPTIjk
-22. Can't Nobody (Acoustic / Audio) - uibhxi1jraM
-23. Can't Nobody (Lyric Video) - EMJoBoQmHrg
+1. Be Alright (The Beer Girl Anthem) (Official Video) - xOnhEyEn7lQ
+2. All In Already (Official Video) - tVf5CyQkwuQ
+3. Drunk Cigs - B0xEZCRUrtU
+4. Gone Fishing - WshkkG9oUnY
+5. Country Queen - PHoRr4cw3LU
+6. I Wish You Would ft. Midland - bdolHTaNDAg
+7. Dozen Red Flags - Na5K6qQN1bw
+8. Cowgirl Like Me (Lyric Video) - iWO0SHkVdKs
+9. Red Wine Blue (Lyric Video) - spHcr4Ip6xM
+10. The Other Side (Lyric Video) - LId-ce7UQ6w
+11. Guys Like You (Lyric Video) - JTPOtyu-AC4
+12. Boots On (Lyric Video) - PWrMDVcpv_k
+13. Only Girl (Official Music Video) - 2mtBQigLBC4
+14. Sound Of A Heartbreak (Lyric Video) - m2uA1oDe7HA
+15. Country Girls (Just Wanna Have Fun) (Remix) - JjmSlqVOM68
+16. Country Girls (Just Wanna Have Fun) (Official Music Video) - 61s35TCMOA4
+17. Introducing Mackenzie Carpenter (The Short Film) - 91zPhArt6NE
+18. Throw You Back - cEVVihU-D_k
+19. Introducing Mackenzie Carpenter (The Interview) - -Ddhxj3Yzng
+20. Don't Mess With Exes (Official Music Video) - aIQ_Fqsc720
+21. Jesus, I'm Jealous - nnWpHsaF-4s
+22. Huntin' Season (Official Music Video) - pOaumsPTIjk
+23. Can't Nobody (Acoustic / Audio) - uibhxi1jraM
+24. Can't Nobody (Lyric Video) - EMJoBoQmHrg
 Use youtube-nocookie.com for embeds.
 
 ## Analytics
