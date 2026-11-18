@@ -1,6 +1,6 @@
 import Image from "next/image";
 import HeroSlider from "@/components/HeroSlider";
-import BandsintownWidget from "@/components/BandsintownWidget";
+import TourDates from "@/components/TourDates";
 
 export default function Home() {
   return (
@@ -81,7 +81,7 @@ export default function Home() {
             Track on Bandsintown
           </a>
 
-          <BandsintownWidget />
+          <TourDates />
 
           <a
             href="https://www.bandsintown.com/a/15503409-mackenzie-carpenter?came_from=267&trigger=play_my_city"

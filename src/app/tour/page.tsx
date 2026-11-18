@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import BandsintownWidget from "@/components/BandsintownWidget";
+import TourDates from "@/components/TourDates";
 
 const SITE_URL = "https://mackenziecarpentermusic.com";
 
@@ -59,7 +59,7 @@ export default function TourPage() {
             Track on Bandsintown
           </a>
 
-          <BandsintownWidget />
+          <TourDates />
 
           <a
             href="https://www.bandsintown.com/a/15503409-mackenzie-carpenter?came_from=267&trigger=play_my_city"
